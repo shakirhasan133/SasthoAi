@@ -1,0 +1,81 @@
+/* Tailwind base */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Brand colors */
+:root {
+  --primary: #4cb963;
+  --accent: #1c2028;
+  --ai-glow: #a78bfa;
+  --bg-info: #f0fdf4;
+  --text-main: #1e293b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  background: var(--bg-info);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* Brand utilities */
+.bg-primary { background-color: var(--primary); }
+.text-primary { color: var(--primary); }
+.border-primary { border-color: var(--primary); }
+.bg-accent { background-color: var(--accent); }
+.text-accent { color: var(--accent); }
+.bg-mint { background-color: var(--bg-info); }
+.text-main { color: var(--text-main); }
+
+/* Effects */
+.glass-effect { backdrop-filter: blur(10px); background: rgba(255,255,255,0.85); }
+.shadow-soft { box-shadow: 0 8px 30px rgba(76,185,99,0.12); }
+.shadow-card { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+/* Chat enhancements */
+.chat-modal-backdrop { backdrop-filter: blur(6px); }
+.message-bubble { word-wrap: break-word; overflow-wrap: break-word; }
+
+/* Scrollbar - chat area */
+.chat-messages { scrollbar-width: thin; scrollbar-color: rgba(76,185,99,0.3) transparent; }
+.chat-messages::-webkit-scrollbar { width: 6px; }
+.chat-messages::-webkit-scrollbar-thumb { background: rgba(76,185,99,0.35); border-radius: 3px; }
+
+/* Touch targets */
+.touch-target { min-height: 44px; min-width: 44px; }
+
+/* Focus styles for a11y */
+input:focus, textarea:focus, button:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* Chat enhancements */
+.drop-bubble {
+  border-radius: 24px;
+  position: relative;
+  margin-bottom: 12px;
+}
+.drop-bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: inherit;
+  border-bottom-right-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Improve suggestions overlay on small screens */
+@media (max-width: 480px) {
+  .suggestions-popover {
+    z-index: 50;
+  }
+}
