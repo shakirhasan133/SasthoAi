@@ -22,10 +22,11 @@ export default function EnhancedHeader() {
     const provider = new GoogleAuthProvider()
     try {
       const result = await signInWithPopup(auth, provider)
-      const idToken = await result.user.getIdToken()
+      const idToken = await result.user.getIdToken(true)
       await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ idToken }),
       })
       // No need to refresh, auth state listener will handle it
@@ -37,7 +38,7 @@ export default function EnhancedHeader() {
   const handleLogout = async () => {
     try {
       await signOut(auth)
-      await fetch('/api/auth/logout', { method: 'POST' })
+      await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' })
       window.location.reload() // Refresh to clear server-side context
     } catch (error) {
       console.error("Logout failed:", error)

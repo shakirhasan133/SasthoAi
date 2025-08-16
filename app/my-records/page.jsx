@@ -24,7 +24,7 @@ export default function MyRecordsPage() {
 
   useEffect(() => {
     if (user) {
-      fetch('/api/diseases')
+      fetch('/api/diseases', { credentials: 'include' })
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data)) {
@@ -52,6 +52,7 @@ export default function MyRecordsPage() {
     const res = await fetch('/api/diseases', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(payload),
     })
     if (res.ok) {
