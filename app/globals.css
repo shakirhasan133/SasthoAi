@@ -1,96 +1,83 @@
-/* Tailwind base */
+/* app/globals.css */
+
+/* 1. Tailwind Preflights */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Universal Reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* 2. Global Variables (shadcn expects this pattern) */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 221.2 83.2% 53.3%;        /* Blue */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;          /* Subtle gray */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 72.2% 50.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+
+    --radius: 0.75rem; /* rounded-xl */
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217.2 91.2% 59.8%;        /* Brighter blue on dark */
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    --radius: 0.75rem;
+  }
 }
 
-html {
-  height: 100%;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
-  background: var(--bg-info);
-  color: var(--text-main);
-  line-height: 1.6;
-  min-height: 100vh; /* Ensure body takes at least full viewport height */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Brand colors */
-:root {
-  --primary: #4cb963;
-  --accent: #1c2028;
-  --ai-glow: #a78bfa;
-  --bg-info: #f0fdf4;
-  --text-main: #1e293b;
-}
-
-/* Brand utilities */
-.bg-primary { background-color: var(--primary); }
-.text-primary { color: var(--primary); }
-.border-primary { border-color: var(--primary); }
-.bg-accent { background-color: var(--accent); }
-.text-accent { color: var(--accent); }
-.bg-mint { background-color: var(--bg-info); }
-.text-main { color: var(--text-main); }
-
-/* Effects */
-.glass-effect { backdrop-filter: blur(10px); background: rgba(255,255,255,0.85); }
-.shadow-soft { box-shadow: 0 8px 30px rgba(76,185,99,0.12); }
-.shadow-card { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-
-/* Chat enhancements */
-.chat-modal-backdrop { backdrop-filter: blur(6px); }
-.message-bubble { word-wrap: break-word; overflow-wrap: break-word; }
-
-/* Scrollbar - chat area */
-.chat-messages { scrollbar-width: thin; scrollbar-color: rgba(76,185,99,0.3) transparent; }
-.chat-messages::-webkit-scrollbar { width: 6px; }
-.chat-messages::-webkit-scrollbar-thumb { background: rgba(76,185,99,0.35); border-radius: 3px; }
-
-/* Touch targets */
-.touch-target { min-height: 44px; min-width: 44px; }
-
-/* Focus styles for a11y */
-/* Apply to all interactive elements for consistency */
-a:focus, input:focus, textarea:focus, button:focus, select:focus, [tabindex="0"]:focus {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-  border-radius: 10px; /* Adjust as needed, matching button styles */
-}
-
-/* Chat enhancements */
-.drop-bubble {
-  border-radius: 24px;
-  position: relative;
-  margin-bottom: 12px;
-}
-.drop-bubble::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  transform: translateX(-50%) rotate(45deg);
-  width: 12px;
-  height: 12px;
-  background: inherit;
-  border-bottom-right-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-}
-
-/* Improve suggestions overlay on small screens */
-@media (max-width: 480px) {
-  .suggestions-popover {
-    z-index: 50;
+/* 3. Base Styles */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
   }
 }

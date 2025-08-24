@@ -15,9 +15,11 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 import MobileMenu from './MobileMenu' // Import the new MobileMenu component
+import { useRouter } from 'next/navigation' // Import useRouter
 
 export default function EnhancedHeader() {
   const { user, loading } = useAuth()
+  const router = useRouter() // Initialize useRouter
 
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider()
@@ -29,7 +31,7 @@ export default function EnhancedHeader() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idToken }),
       })
-      // No need to refresh, auth state listener will handle it
+      router.push('/dashboard') // Redirect to dashboard after successful login
     } catch (error) {
       console.error("Login failed:", error)
     }
@@ -79,7 +81,7 @@ export default function EnhancedHeader() {
               <DropdownMenuContent>
                 <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => window.location.href='/my-records'}>
+                <DropdownMenuItem onClick={() => router.push('/my-records')}>
                   My Records
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout} className="text-red-500">

@@ -38,48 +38,48 @@ export default function MobileMenu() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu />
+          <Menu className="h-6 w-6" /> {/* Increased icon size */}
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="bg-white text-main">
+      <SheetContent side="left" className="bg-background text-foreground"> {/* Updated styling */}
         <SheetHeader>
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col space-y-4 py-4">
-          <Button variant="ghost" onClick={() => handleLinkClick('/')} className="flex items-center justify-start">
-            <Home className="mr-2 h-4 w-4" />
+          <Button variant="ghost" onClick={() => handleLinkClick('/')} className="flex items-center justify-start text-foreground">
+            <Home className="mr-2 h-5 w-5" /> {/* Increased icon size */}
             Home
           </Button>
-          <Button variant="ghost" onClick={() => handleLinkClick('/my-records')} className="flex items-center justify-start">
-            <FileText className="mr-2 h-4 w-4" />
+          <Button variant="ghost" onClick={() => handleLinkClick('/my-records')} className="flex items-center justify-start text-foreground">
+            <FileText className="mr-2 h-5 w-5" /> {/* Increased icon size */}
             My Records
           </Button>
           {user && (
-            <Button variant="ghost" onClick={() => handleLinkClick('/my-records')} className="flex items-center justify-start">
-              <PlusCircle className="mr-2 h-4 w-4" />
+            <Button variant="ghost" onClick={() => handleLinkClick('/my-records')} className="flex items-center justify-start text-foreground">
+              <PlusCircle className="mr-2 h-5 w-5" /> {/* Increased icon size */}
               Add Record
             </Button>
           )}
           {user && (
-            <Button variant="ghost" onClick={() => handleLinkClick('/ai-health')} className="flex items-center justify-start">
-              <Brain className="mr-2 h-4 w-4" />
+            <Button variant="ghost" onClick={() => handleLinkClick('/ai-health')} className="flex items-center justify-start text-foreground">
+              <Brain className="mr-2 h-5 w-5" /> {/* Increased icon size */}
               AI Health
             </Button>
           )}
           {user && (
-            <Button variant="ghost" onClick={() => handleLinkClick('/chat')} className="flex items-center justify-start">
-              <MessageSquare className="mr-2 h-4 w-4" />
+            <Button variant="ghost" onClick={() => handleLinkClick('/chat')} className="flex items-center justify-start text-foreground">
+              <MessageSquare className="mr-2 h-5 w-5" /> {/* Increased icon size */}
               Chat
             </Button>
           )}
         </div>
         <div className="absolute bottom-4 left-4 right-4">
           {user ? (
-            <Button onClick={handleLogout} className="w-full">
+            <Button onClick={handleLogout} className="w-full bg-destructive text-destructive-foreground hover:bg-destructive/90">
               Logout
             </Button>
           ) : (
-            <Button onClick={handleLogin} className="w-full">
+            <Button onClick={handleLogin} className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
               Login
             </Button>
           )}

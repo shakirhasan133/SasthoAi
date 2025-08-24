@@ -12,7 +12,6 @@ export default function DiseaseDetails({ diseaseSlug = "diabetes" }) {
   const disease = diseaseData[diseaseSlug]
   const resolvedName = disease?.name || decodeURIComponent(String(diseaseSlug)).replace(/-/g, ' ')
 
-  // Auto-enrich disease content via server API (OpenRouter/DeepSeek) on mount or slug change
   useEffect(() => {
     let isCancelled = false
     setLoading(true)
@@ -72,13 +71,13 @@ export default function DiseaseDetails({ diseaseSlug = "diabetes" }) {
       >
         <div className="max-w-md mx-auto flex items-center space-x-3">
           <motion.button onClick={() => window.history.back()} aria-label="Go back"
-            className="p-2 rounded-xl bg-[#F0FDF4] text-primary shadow-card hover:brightness-95"
+            className="p-2 rounded-xl bg-[#F0FDF4] text-primary shadow-md hover:brightness-95 focus:ring-2 focus:ring-primary focus:ring-offset-2"
             whileTap={{ scale: 0.95 }}
           >
             <ArrowLeft className="w-5 h-5" />
           </motion.button>
           <div className="flex-1">
-            <h1 className="text-base font-bold text-main">রোগের বিস্তারিত</h1>
+            <h1 className="text-lg font-bold text-main">রোগের বিস্তারিত</h1> {/* Adjusted font size for header title */}
             <p className="text-xs text-gray-600">AI চালিত স্বাস্থ্য তথ্য</p>
           </div>
         </div>
@@ -87,15 +86,15 @@ export default function DiseaseDetails({ diseaseSlug = "diabetes" }) {
       <div className="px-4 py-6">
         <div className="max-w-md mx-auto">
           <motion.div
-            className="bg-white rounded-2xl p-6 shadow-card border border-[#e1f3e7] mb-5 text-center"
+            className="bg-white rounded-3xl p-6 shadow-lg border border-[#e1f3e7] mb-8 text-center" /* Larger rounded corners, softer shadow, more margin */
             initial={{ scale: 0.97, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4 }}
           >
-            <div className="w-16 h-16 mx-auto mb-3 rounded-2xl text-white flex items-center justify-center"
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full text-white flex items-center justify-center" /* Rounded logo container */
                  style={{ background: "linear-gradient(135deg, var(--primary), #3a9f4f)" }}>
               <BookOpen className="w-8 h-8" />
             </div>
-            <h2 className="text-2xl font-bold text-main mb-1">{resolvedName}</h2>
-            <p className="text-sm text-gray-600">বিস্তারিত তথ্য ও পরামর্শ</p>
+            <h2 className="text-3xl font-extrabold text-main mb-2">{resolvedName}</h2> {/* Larger, bolder disease name */}
+            <p className="text-base text-gray-600 leading-relaxed">বিস্তারিত তথ্য ও পরামর্শ</p> {/* Larger description */}
           </motion.div>
 
           {loading ? (
@@ -108,11 +107,11 @@ export default function DiseaseDetails({ diseaseSlug = "diabetes" }) {
               <div className="space-y-4">
                 {sections.map((s, idx) => (
                   <motion.div key={s.key}
-                    className="bg-white rounded-2xl border border-[#f1f5f2] shadow-card overflow-hidden"
+                    className="bg-white rounded-2xl border border-[#f1f5f2] shadow-lg overflow-hidden" /* Softer shadow */
                     initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05, duration: 0.3 }}
                   >
                     <button
-                      className="w-full p-4 flex items-center justify-between hover:bg-[#F7FFF9] transition-colors"
+                      className="w-full p-4 flex items-center justify-between hover:bg-[#F7FFF9] transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-t-2xl" /* Added focus ring, rounded top */
                       onClick={() => setExpanded(e => ({ ...e, [s.key]: !e[s.key] }))}
                       aria-expanded={!!expanded[s.key]} aria-controls={`${s.key}-content`}
                     >
@@ -133,12 +132,12 @@ export default function DiseaseDetails({ diseaseSlug = "diabetes" }) {
                       transition={{ duration: 0.25 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-4 pb-4">
-                        <ul className="space-y-3 border-t border-[#f1f5f2] pt-4">
+                      <div className="p-4 border-t border-[#f1f5f2]"> {/* Padding for content, border top */}
+                        <ul className="space-y-3">
                           {s.data.map((item, i) => (
                             <li key={i} className="flex items-start space-x-3 text-gray-700">
-                              <span className="w-2 h-2 rounded-full mt-2 bg-primary" />
-                              <span className="text-sm leading-relaxed">{item}</span>
+                              <span className="w-2 h-2 rounded-full mt-2 bg-primary flex-shrink-0" /> {/* Added flex-shrink */} 
+                              <span className="text-base leading-relaxed">{item}</span> {/* Larger text for list items */}
                             </li>
                           ))}
                         </ul>
@@ -148,12 +147,12 @@ export default function DiseaseDetails({ diseaseSlug = "diabetes" }) {
                 ))}
               </div>
 
-              <motion.div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-2xl p-4"
+              <motion.div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-2xl p-4 shadow-md" /* Softer shadow, more margin */
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
               >
                 <div className="flex items-start space-x-3">
-                  <AlertCircle className="w-5 h-5 text-yellow-700 mt-0.5" />
-                  <p className="text-sm text-yellow-800">
+                  <AlertCircle className="w-5 h-5 text-yellow-700 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-yellow-800 leading-relaxed">
                     এই তথ্যগুলো শিক্ষামূলক। কোনো চিকিৎসা সিদ্ধান্তের আগে অবশ্যই ডাক্তারের পরামর্শ নিন।
                   </p>
                 </div>
