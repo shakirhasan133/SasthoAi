@@ -14,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
+import MobileMenu from './MobileMenu' // Import the new MobileMenu component
 
 export default function EnhancedHeader() {
   const { user, loading } = useAuth()
@@ -53,6 +54,7 @@ export default function EnhancedHeader() {
     >
       <div className="max-w-4xl mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-3">
+          <MobileMenu /> {/* Mobile menu for smaller screens */}
           <div
             className="w-10 h-10 rounded-xl shadow-soft flex items-center justify-center"
             style={{ background: "linear-gradient(135deg, var(--primary), #3a9f4f)" }}
@@ -63,7 +65,7 @@ export default function EnhancedHeader() {
           <h1 className="text-2xl font-bold text-main hidden sm:block">SasthoAi</h1>
         </div>
 
-        <div>
+        <div className="hidden md:block"> {/* Hide desktop navigation on small screens */}
           {loading ? (
             <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse" />
           ) : user ? (

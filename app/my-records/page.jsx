@@ -22,20 +22,28 @@ export default function MyRecordsPage() {
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [formData, setFormData] = useState({ name: '', description: '', symptoms: '', treatments: '' })
 
+  // Dummy data for demonstration
+  const dummyRecords = [
+    {
+      _id: 'dummy1',
+      name: 'Common Cold',
+      description: 'A viral infection of the upper respiratory tract.',
+      symptoms: ['runny nose', 'sore throat', 'cough'],
+      treatments: ['rest', 'fluids', 'over-the-counter medication'],
+    },
+    {
+      _id: 'dummy2',
+      name: 'Seasonal Allergies',
+      description: 'An allergic response to pollen or other environmental allergens.',
+      symptoms: ['sneezing', 'itchy eyes', 'nasal congestion'],
+      treatments: ['antihistamines', 'nasal sprays'],
+    },
+  ]
+
   useEffect(() => {
-    if (user) {
-      fetch('/api/diseases')
-        .then(res => res.json())
-        .then(data => {
-          if (Array.isArray(data)) {
-            setRecords(data)
-          }
-          setIsLoading(false)
-        })
-    } else if (!loading) {
-      setIsLoading(false)
-    }
-  }, [user, loading])
+    setRecords(dummyRecords);
+    setIsLoading(false);
+  }, [])
 
   const handleFormChange = (e) => {
     const { name, value } = e.target

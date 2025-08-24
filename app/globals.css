@@ -3,6 +3,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Universal Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  background: var(--bg-info);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh; /* Ensure body takes at least full viewport height */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Brand colors */
 :root {
   --primary: #4cb963;
@@ -10,15 +33,6 @@
   --ai-glow: #a78bfa;
   --bg-info: #f0fdf4;
   --text-main: #1e293b;
-}
-
-* { box-sizing: border-box; }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
-  background: var(--bg-info);
-  color: var(--text-main);
-  line-height: 1.6;
 }
 
 /* Brand utilities */
@@ -48,10 +62,11 @@ body {
 .touch-target { min-height: 44px; min-width: 44px; }
 
 /* Focus styles for a11y */
-input:focus, textarea:focus, button:focus {
+/* Apply to all interactive elements for consistency */
+a:focus, input:focus, textarea:focus, button:focus, select:focus, [tabindex="0"]:focus {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
-  border-radius: 10px;
+  border-radius: 10px; /* Adjust as needed, matching button styles */
 }
 
 /* Chat enhancements */
