@@ -1,10 +1,15 @@
-import { getServerSession } from "next-auth";
+"use client"
+
+import useAuth from "@/hooks/use-auth";
 import { redirect } from "next/navigation";
 
-export default async function PrivateLayout({ children }) {
-  const session = await getServerSession();
+export default function PrivateLayout({ children }) {
+  const {loading, user} = useAuth()
+  if(loading) {
+    return <h1>Loading</h1>
+  }
 
-  if (!session?.user) {
+  if (!user) {
     redirect("/login");
   }
 

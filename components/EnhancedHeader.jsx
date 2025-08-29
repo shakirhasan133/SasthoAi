@@ -52,9 +52,8 @@ export default function EnhancedHeader() {
             style={{ background: "linear-gradient(135deg, var(--primary), #3a9f4f)" }}
             aria-label="SasthoAi logo"
           >
-            <span className="text-white font-bold text-lg">SasthoAi</span>
           </div>
-          <h1 className="text-2xl font-bold text-main hidden sm:block">SasthoAi</h1>
+          <h1 className="text-2xl font-bold text-main ">SasthoAi</h1>
         </div>
 
         <div className="hidden md:block"> {/* Hide desktop navigation on small screens */}
