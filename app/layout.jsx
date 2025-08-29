@@ -1,6 +1,9 @@
 import "./globals.css"
-import GlobalChat from "../components/GlobalChat"
+import SafeGlobalChat from "../components/SafeGlobalChat"
+import ErrorBoundary from "../components/ErrorBoundary"
 import Script from 'next/script'
+import EnhancedHeader from "@/components/EnhancedHeader"
+import { AuthProvider } from "@/provider/AuthProvider"
 
 export const metadata = {
   title: "SasthoAi - Your AI Health Companion",
@@ -19,8 +22,13 @@ export default function RootLayout({ children }) {
         <Script src="https://js.puter.com/v2/" strategy="afterInteractive" />
       </head>
       <body>
-        {children}
-        <GlobalChat />
+        <AuthProvider>
+        <ErrorBoundary>
+        <EnhancedHeader />
+          {children}
+          <SafeGlobalChat />
+        </ErrorBoundary>
+        </AuthProvider>
       </body>
     </html>
   )

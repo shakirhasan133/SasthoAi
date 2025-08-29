@@ -36,9 +36,9 @@ export default function MobileMenu() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className="w-10 h-10">
         <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu className="h-6 w-6" /> {/* Increased icon size */}
+          <Menu className="h-10 w-10 text-white" /> {/* Increased icon size */}
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="bg-background text-foreground"> {/* Updated styling */}
