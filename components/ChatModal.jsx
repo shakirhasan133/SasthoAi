@@ -154,7 +154,7 @@ export default function ChatModal({ isOpen, onClose }) {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-secondary/20 to-background chat-messages">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-black">
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
@@ -164,13 +164,13 @@ export default function ChatModal({ isOpen, onClose }) {
                   transition={{ duration: 0.3 }}
                 >
                   <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-3 message-bubble ${
+                    className={`max-w-[85%] rounded-2xl px-4 py-3${
                       message.sender === "user"
                         ? "bg-primary text-white rounded-br-md"
                         : message.sender === "ai" ? "bg-background border border-border text-foreground rounded-bl-md shadow-sm" : "text-muted-foreground italic text-center w-full"
                     }`}
                   >
-                    <div className="flex items-start space-x-2">
+                    <div className="flex items-start space-x-">
                       {message.sender === "ai" && (
                         <div className="w-6 h-6 bg-secondary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                           <Bot className="w-3 h-3 text-primary" />
@@ -187,7 +187,7 @@ export default function ChatModal({ isOpen, onClose }) {
                       </div>
                       {message.sender === "user" && (
                         <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <User className="w-3 h-3 text-primary-foreground" />
+                          <User className="w-3 h-3 text-primary" />
                         </div>
                       )}
                     </div>

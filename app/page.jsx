@@ -16,10 +16,9 @@ export default function HomePage() {
         <meta name="theme-color" content="#4CB963" />
       </Head>
 
-      <main className="min-h-screen bg-gradient-to-b from-[#F0FDF4] to-white flex flex-col">
-        <EnhancedHeader />
+      <main className=" bg-gradient-to-b from-[#F0FDF4] to-white flex flex-col">
         <div className="flex-1 flex flex-col items-center justify-start px-4 py-8"> {/* Adjusted padding and alignment */}
-        <div className="w-full max-w-md mx-auto"> {/* Added max-width for larger screens */}
+        <div className="w-full w-full mx-auto"> {/* Added max-width for larger screens */}
         <ImprovedCentralSearch />
         </div>
           <RecentTopSearch />

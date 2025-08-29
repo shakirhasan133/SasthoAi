@@ -6,8 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase/supabase-client";
+import {useRouter} from "next/navigation"
 
 export default function LoginPage() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,7 +23,17 @@ export default function LoginPage() {
     
     try {
       // TODO: Implement login logic here
-      console.log("Login attempt:", formData);
+      const { error} = await supabase.auth.signInWithPassword({
+        email : formData.email,
+        password : formData.password
+      })
+      if(error){
+        console.log(error)
+      }
+      else{
+        router.push('/')
+      }
+
       
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -42,7 +55,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
+    <div className=" dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo/Brand Section */}
         <div className="text-center mb-8">

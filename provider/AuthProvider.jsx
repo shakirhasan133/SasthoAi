@@ -29,8 +29,12 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
       }
     };
-
+    
     getUserFromSupabase();
+    // Listen for auth changes
+    const {data, error} = supabase.auth.onAuthStateChange((_event, session)=>{
+      setUser(session?.user || null)
+    })
   }, []);
 
 

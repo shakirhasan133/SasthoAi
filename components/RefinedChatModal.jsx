@@ -2,10 +2,44 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Send, Mic, Bot, User, Minus } from 'lucide-react'
+import { Card } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
+
+
+
+function UserCard({ className = "", children, ...props }) {
+  // User message card: gradient bg, white text, no border
+  return (
+    <Card
+      className={cn(
+        "bg-gradient-to-br from-[var(--primary)] to-[#3a9f4f] text-white border-transparent",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Card>
+  )
+}
+
+function AiCard({ className = "", children, ...props }) {
+  // AI message card: white bg, main text, border
+  return (
+    <Card
+      className={cn(
+        "bg-white text-main border-[#eef6f0]",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Card>
+  )
+}
 
 export default function RefinedChatModal({ isOpen, onClose }) {
   const [messages, setMessages] = useState([
-    { id: 1, text: "নমস্কার! আমি SasthoAi। আপনার স্বাস্থ্য সংক্রান্ত যেকোনো প্রশ্ন করতে পারেন। 😊", sender: "ai", timestamp: new Date() }
+    { id: 1, text: "হাই! আমি SasthoAi। আপনার স্বাস্থ্য সংক্রান্ত যেকোনো প্রশ্ন করতে পারেন। 😊", sender: "ai", timestamp: new Date() }
   ])
   const [inputText, setInputText] = useState("")
   const [isTyping, setIsTyping] = useState(false)
@@ -130,39 +164,41 @@ export default function RefinedChatModal({ isOpen, onClose }) {
                     className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}
                     initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                   >
-                    <div
-                      className={`max-w-[85%] rounded-2xl px-4 py-3 message-bubble drop-bubble ${m.sender === "user"
-                        ? "text-white bg-gradient-to-br from-[var(--primary)] to-[#3a9f4f] border-transparent ml-auto"
-                        : "text-main bg-white border-[#eef6f0] mr-auto"} shadow-card border`}
-                      style={{
-                        // background is now handled by Tailwind classes above
-                      }}
-                    >
-                      <div className={`flex items-start space-x-2 ${m.sender === "user" ? "flex-row-reverse space-x-reverse" : ""}`}>
-                        {m.sender === "ai" && (
-                          <div className="w-6 h-6 bg-[#F0FDF4] text-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    {m.sender === "user" ? (
+                      <UserCard className="max-w-[85%] ml-auto px-4 py-3 message-bubble drop-bubble">
+                        <div className="flex items-start space-x-2 flex-row-reverse space-x-reverse">
+                          <div className="w-6 h-6 bg-green-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <User className="w-3 h-3 text-primary" />
+                          </div>
+                          <div className="flex-1 text-primary">
+                            <p className="text-sm leading-relaxed">{m.text}</p>
+                            <p className="text-[11px] mt-1  text-right">
+                              {m.timestamp.toLocaleTimeString("bn-BD", { hour: "2-digit", minute: "2-digit" })}
+                            </p>
+                          </div>
+                        </div>
+                      </UserCard>
+                    ) : (
+                      <AiCard className="max-w-[85%] mr-auto px-4 py-3 message-bubble drop-bubble">
+                        <div className="flex items-start space-x-2">
+                          <div className="w-6 h-6 bg-green-400 text-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                             <Bot className="w-3 h-3" />
                           </div>
-                        )}
-                        <div className="flex-1">
-                          <p className="text-sm leading-relaxed">{m.text}</p>
-                          <p className={`text-[11px] mt-1 ${m.sender === "user" ? "text-white/80 text-right" : "text-gray-400"}`}>
-                            {m.timestamp.toLocaleTimeString("bn-BD", { hour: "2-digit", minute: "2-digit" })}
-                          </p>
-                        </div>
-                        {m.sender === "user" && (
-                          <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <User className="w-3 h-3 text-white" />
+                          <div className="flex-1">
+                            <p className="text-sm leading-relaxed">{m.text}</p>
+                            <p className="text-[11px] mt-1 text-gray-400">
+                              {m.timestamp.toLocaleTimeString("bn-BD", { hour: "2-digit", minute: "2-digit" })}
+                            </p>
                           </div>
-                        )}
-                      </div>
-                    </div>
+                        </div>
+                      </AiCard>
+                    )}
                   </motion.div>
                 ))}
 
                 {isTyping && (
                   <motion.div className="flex justify-start" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    <div className="bg-white border border-[#eef6f0] rounded-2xl px-4 py-3 shadow-sm">
+                    <AiCard className="px-4 py-3">
                       <div className="flex items-center space-x-2">
                         <div className="w-6 h-6 bg-[#F0FDF4] text-primary rounded-full flex items-center justify-center">
                           <Bot className="w-3 h-3" />
@@ -173,7 +209,7 @@ export default function RefinedChatModal({ isOpen, onClose }) {
                           <motion.span className="w-2 h-2 bg-primary rounded-full" animate={{ y: [0, -4, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }} />
                         </div>
                       </div>
-                    </div>
+                    </AiCard>
                   </motion.div>
                 )}
 
